@@ -1,0 +1,8 @@
+name: PitchOut
+version: '${version}'
+main: fr.loanspac.pitchout.PitchOut
+authors: [LoanSpac]
+commands:
+  spawn:
+
+  build:
