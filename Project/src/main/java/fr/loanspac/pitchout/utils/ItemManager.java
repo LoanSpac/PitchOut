@@ -33,6 +33,18 @@ public class ItemManager {
         return item;
     }
 
+    public static ItemStack getItem(Material material, String name, Enchantment ench, int level, Boolean unbreak) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta itemM = item.getItemMeta();
+        itemM.setDisplayName(name);
+        itemM.setUnbreakable(unbreak);
+        itemM.addEnchant(ench, level, true);
+        itemM.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        item.setItemMeta(itemM);
+        return item;
+    }
+
     public static ItemStack getByteItem(Material material, String name, Boolean ench, Boolean unbreak, Byte bite) {
         ItemStack item = new ItemStack(material, 1, bite);
         ItemMeta itemM = item.getItemMeta();

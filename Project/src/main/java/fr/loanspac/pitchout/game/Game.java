@@ -32,13 +32,12 @@ public class Game extends BukkitRunnable implements Listener {
     public static void equipPlayer(Player player) {
         player.getInventory().clear();
         ItemStack pelle = ItemManager.getItem(Material.DIAMOND_SPADE, "§cPelle Poussoire", true, true);
-        ItemStack arc = ItemManager.getItem(Material.BOW, "§cArc Poussoire", true, true);
+        ItemStack arc = ItemManager.getItem(Material.BOW, "§cArc Poussoire", Enchantment.ARROW_INFINITE, 1, true);
         ItemStack fleche = new ItemStack(Material.ARROW);
-        //arc.addEnchantment(Enchantment.ARROW_INFINITE, 1);
 
         player.getInventory().setItem(0, pelle);
         player.getInventory().setItem(1, arc);
-        player.getInventory().setItem(10, fleche);
+        player.getInventory().setItem(9, fleche);
 
         player.updateInventory();
     }
@@ -105,6 +104,7 @@ public class Game extends BukkitRunnable implements Listener {
 
         if(time == 0) {
             GameType.setState(GameType.PITCHOUT);
+            Bukkit.getWorld("world").setPVP(true);
             for(Player players : Bukkit.getOnlinePlayers()) {
                 players.playSound(players.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                 alives.add(players);
@@ -141,6 +141,9 @@ public class Game extends BukkitRunnable implements Listener {
             time++;
         } else if (time != -20) {
             time = -20;
+            if (Bukkit.getWorld("world").getPVP()) {
+                Bukkit.getWorld("world").setPVP(false);
+            }
             Bukkit.broadcastMessage("En attente de joueur..");
         }
     }

@@ -11,6 +11,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 public class GlobalListener implements Listener {
@@ -63,5 +64,10 @@ public class GlobalListener implements Listener {
         if(GameType.getCurrentState().equals(GameType.WAITING) || GameType.getCurrentState().equals(GameType.PITCHOUT)) {
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onSwap(PlayerSwapHandItemsEvent event) {
+        event.setCancelled(true);
     }
 }

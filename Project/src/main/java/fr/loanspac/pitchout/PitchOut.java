@@ -25,7 +25,6 @@ public final class PitchOut extends JavaPlugin {
         CommandManager commands = new CommandManager();
         commands.setCommand();
 
-        Bukkit.getWorld("world").setPVP(false);
         Game game = new Game();
         game.runTaskTimer(this, 0, 20);
     }
