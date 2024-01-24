@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -31,9 +32,22 @@ public class GlobalListener implements Listener {
     }
 
     @EventHandler
+    public void onFireTick(EntityDamageEvent event){
+        if(event.getCause().equals(EntityDamageEvent.DamageCause.FIRE) || event.getCause().equals(EntityDamageEvent.DamageCause.FIRE_TICK)){
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        if(!(GameType.getCurrentState().equals(GameType.PITCHOUT))) return;
+        event.setDamage(0);
+    }
+
+    @EventHandler
     public void onExplode(EntityExplodeEvent event) {
         event.setCancelled(true);
-    } // A VERIF
+    }
 
     @EventHandler
     public void onBlockBreak(EntityChangeBlockEvent event) {

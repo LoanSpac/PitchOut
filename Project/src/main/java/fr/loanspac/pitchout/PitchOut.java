@@ -19,6 +19,8 @@ public final class PitchOut extends JavaPlugin {
 
         GameType.setState(GameType.WAITING);
 
+        //Bukkit.getWorld("world").setGameRuleValue("RF", "true");
+
         ListenerManager listeners = new ListenerManager();
         listeners.registerEvents();
 

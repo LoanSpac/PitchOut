@@ -4,8 +4,10 @@ import fr.loanspac.pitchout.PitchOut;
 import fr.loanspac.pitchout.game.GameSettings;
 import fr.loanspac.pitchout.game.GameType;
 import fr.loanspac.pitchout.managers.ScoreboardManager;
+import fr.loanspac.pitchout.utils.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +29,7 @@ public class PlayerListener implements Listener {
         player.sendTitle("§c§lPitchOut", "§fBienvenue " + player.getName());
 
         if(GameType.getCurrentState().equals(GameType.WAITING)) {
+            player.setMaxHealth(20);
             player.setHealth(20);
             player.showPlayer(PitchOut.instance(), player);
             player.setGlowing(false);
@@ -45,6 +48,11 @@ public class PlayerListener implements Listener {
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
             player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 1);
             player.teleport(GameSettings.spawn);
+            player.getInventory().setItem(0, ItemManager.getItem(Material.NETHER_STAR, "§6Main", false, false));
+            player.getInventory().setItem(4, ItemManager.getItem(Material.WOOL, "§6Team", false, false));
+            player.getInventory().setItem(8, ItemManager.getItem(Material.DARK_OAK_DOOR_ITEM, "§4Retour Lobby", false, false));
+
+            player.updateInventory();
         }
     }
 

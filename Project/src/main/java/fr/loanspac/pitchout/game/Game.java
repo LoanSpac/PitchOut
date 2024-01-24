@@ -1,9 +1,8 @@
 package fr.loanspac.pitchout.game;
 
+import fr.loanspac.pitchout.game.items.ItemType;
 import fr.loanspac.pitchout.managers.ScoreboardManager;
-import fr.loanspac.pitchout.utils.ItemManager;
 import org.bukkit.*;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,8 +30,8 @@ public class Game extends BukkitRunnable implements Listener {
 
     public static void equipPlayer(Player player) {
         player.getInventory().clear();
-        ItemStack pelle = ItemManager.getItem(Material.DIAMOND_SPADE, "§cPelle Poussoire", true, true);
-        ItemStack arc = ItemManager.getItem(Material.BOW, "§cArc Poussoire", Enchantment.ARROW_INFINITE, 1, true);
+        ItemStack pelle = ItemType.PELLE.getItem();
+        ItemStack arc = ItemType.ARC.getItem();
         ItemStack fleche = new ItemStack(Material.ARROW);
 
         player.getInventory().setItem(0, pelle);
@@ -44,10 +43,9 @@ public class Game extends BukkitRunnable implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
-        if(GameType.getCurrentState().equals(GameType.PITCHOUT)){
-            alives.remove(event.getPlayer());
-            getInPVP().remove(event.getPlayer());
-        }
+        if(!(GameType.getCurrentState().equals(GameType.PITCHOUT))) return;
+        alives.remove(event.getPlayer());
+        getInPVP().remove(event.getPlayer());
     }
 
     @EventHandler
@@ -60,7 +58,8 @@ public class Game extends BukkitRunnable implements Listener {
             player.setGameMode(GameMode.SPECTATOR);
             player.playSound(player.getLocation(), Sound.ENTITY_CAT_HISS, 1, 1);
             player.sendMessage("§cLa partie est déjà en cours !");
-        } else if(GameType.getCurrentState().equals(GameType.END)) {
+        }
+        if(GameType.getCurrentState().equals(GameType.END)) {
             Player player = event.getPlayer();
             alives.remove(player);
 
@@ -108,6 +107,7 @@ public class Game extends BukkitRunnable implements Listener {
             for(Player players : Bukkit.getOnlinePlayers()) {
                 players.playSound(players.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                 alives.add(players);
+                players.setMaxHealth(6);
                 getInPVP().add(players);
                 teleportPlayer(players);
                 equipPlayer(players);
@@ -118,6 +118,7 @@ public class Game extends BukkitRunnable implements Listener {
             for (Player players : Bukkit.getOnlinePlayers()) {
                 scoreboard.updateScoreboard(players, time);
                 if(players.getHealth() <= 0) {
+                    players.setMaxHealth(20);
                     players.setHealth(20);
                     players.setFoodLevel(20);
                     players.setGameMode(GameMode.SPECTATOR);
