@@ -1,22 +1,14 @@
-# [FR] PitchOut
+# PitchOut
 
-### 🏠 [Homepage](https://github.com/LoanSpac/PitchOut)
+## 📄 About PitchOut
 
-## 📄 Infos
+PitchOut is a game plugin for Minecraft. The plugin was created for test and learn.
 
-Ce projet a été réalisé afin de débuter et d'apprendre le développement sous java Spigot.
-
-## 📚 Usages / API / Libs
+## 📚 It use
 
 - Spigot 1.12.2 ```https://cdn.getbukkit.org/spigot/spigot-1.12.2.jar```
 - FastBoard ```https://github.com/MrMicky-FR/FastBoard```
 
-## 📡 Author
+## 📡 Contributor
 
-* Discord : **loanspac**
-* Github : [LoanSpac](https://github.com/LoanSpac)
-
-***
-## 📝 Open Source
-
-* 2023 [LoanSpac](https://github.com/LoanSpac)<br />
+* [LoanSpac](https://github.com/LoanSpac)
